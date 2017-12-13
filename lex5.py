@@ -1,18 +1,41 @@
 import ply.lex as lex
 
 reserved_words = (
+	'number',
+	'text',
+	'bool',
+	'list',
+	'step',
+	'for',
+	'to',
 	'while',
-	'print'
+	'if',
+	'else',
+	'switch',
+	'case',
+	'print',
+	'PI',
+	'TRUE',
+	'FALSE'
 )
 
 tokens = (
 	'NUMBER',
+	'TEXT',
+	'LIST',
+	'BOOL',
+	'CONTEXT_OP'
 	'ADD_OP',
 	'MUL_OP',
-	'IDENTIFIER',
+	'IDENTIFIER'
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = '();={}><'
+
+
+def t_CONTEXT_OP(t):
+	r'\.'
+	return t
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -20,6 +43,10 @@ def t_ADD_OP(t):
 	
 def t_MUL_OP(t):
 	r'[*/]'
+	return t
+
+def t_COMP_OP(t):
+	r'{2}(=!)(!=)<>'
 	return t
 
 def t_NUMBER(t):
