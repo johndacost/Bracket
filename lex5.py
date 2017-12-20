@@ -1,10 +1,6 @@
 import ply.lex as lex
 
 reserved_words = (
-    'number',
-    'text',
-    'bool',
-    'list',
     'step',
     'for',
     'to',
@@ -34,6 +30,31 @@ tokens = (
 literals = '();={}><'
 
 
+def t_NUMBER(t):
+    r'\d+(\.\d+)?'
+    try:
+        t.value = float(t.value)
+    except ValueError:
+        print("Line %d: Problem while parsing %s, number expected" % (t.lineno, t.value))
+        t.value = 0
+    return t
+
+
+def t_TEXT(t):
+    r'"\w+"'
+    return t
+
+
+def t_BOOL(t):
+    r'true|false'
+    try:
+        t.value = bool(t.value)
+    except ValueError:
+        print("Line %d: Problem while parsing %s, boolean expected" % (t.lineno, t.value))
+        t.value = 0
+    return t
+
+
 def t_CONTEXT_OP(t):
     r'\.'
     return t
@@ -51,16 +72,6 @@ def t_MUL_OP(t):
 
 def t_COMP_OP(t):
     r'[[^=!]([=!]=)[^=]]'
-    return t
-
-
-def t_NUMBER(t):
-    r'\d+(\.\d+)?'
-    try:
-        t.value = float(t.value)
-    except ValueError:
-        print("Line %d: Problem while parsing %s!" % (t.lineno, t.value))
-        t.value = 0
     return t
 
 
@@ -88,6 +99,7 @@ lex.lex()
 
 if __name__ == "__main__":
     import sys
+
     prog = open(sys.argv[1]).read()
 
     lex.input(prog)
