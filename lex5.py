@@ -46,7 +46,7 @@ def t_MUL_OP(t):
 	return t
 
 def t_COMP_OP(t):
-	r'{2}(=!)(!=)<>'
+	r'[={2}(=!)(!=)<>]'
 	return t
 
 def t_NUMBER(t):
