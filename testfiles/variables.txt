@@ -1,0 +1,11 @@
+number mon_nombre
+text VarText
+bool isPlaying
+
+number num = 23
+text tex = "Bonjour"
+bool isTrue = true
+
+mon_nombre = 0
+VarText = " ? number, text, bool"
+isPlaying = false

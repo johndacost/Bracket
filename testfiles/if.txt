@@ -1,0 +1,15 @@
+if true {
+	print("ok")
+}
+
+if false {
+	print("ko")
+} else {
+	print("ok")
+}
+
+if 2 == 2 {
+	print("ok")
+} else {
+	print("ko")
+}

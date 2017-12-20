@@ -1,0 +1,9 @@
+number myNumber = 0
+
+myNumber = myNumber + 2
+
+myNumber = myNumber * 2
+
+myNumber = myNumber / 2
+
+myNumber = myNumber - 2
