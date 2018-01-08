@@ -27,7 +27,7 @@ tokens = (
     'IDENTIFIER'
 ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '();={}><'
+literals = '()={}'
 
 
 def t_NUMBER(t):
@@ -71,7 +71,7 @@ def t_MUL_OP(t):
 
 
 def t_COMP_OP(t):
-    r'[[^=!]([=!]=)[^=]]'
+    r'==|!=|=!|<|>'
     return t
 
 
@@ -91,7 +91,7 @@ t_ignore = ' \t'
 
 
 def t_error(t):
-    print("Illegal character '%s'" % repr(t.value[0]))
+    print("Illegal character '%s' line : %i" % (repr(t.value[0]),t.lineno))
     t.lexer.skip(1)
 
 

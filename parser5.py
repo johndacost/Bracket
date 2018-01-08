@@ -48,6 +48,10 @@ def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
+def p_compare(p):
+    ''' compare : expression COMP_OP expression '''
+    p[0] = AST.CompNode(p[1],p[2],p[3])
+
 def p_error(p):
     if p:
         print ("Syntax error in line %d" % p.lineno)
@@ -59,7 +63,7 @@ def p_error(p):
 precedence = (
     ('left', 'ADD_OP'),
     ('left', 'MUL_OP'),
-    ('right', 'UMINUS'),  
+    ('right', 'UMINUS'),
 )
 
 def parse(program):
