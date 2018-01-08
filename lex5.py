@@ -11,21 +11,21 @@ reserved_words = (
     'case',
     'print',
     'PI',
-    'TRUE',
-    'FALSE'
+    'true',
+    'false'
 )
 
 tokens = (
-    'NUMBER',
-    'TEXT',
-    'LIST',
-    'BOOL',
-    'CONTEXT_OP'
-    'ADD_OP',
-    'MUL_OP',
-    'COMP_OP',
-    'IDENTIFIER'
-) + tuple(map(lambda s: s.upper(), reserved_words))
+             'NUMBER',
+             'TEXT',
+             'LIST',
+             'BOOL',
+             'CONTEXT_OP'
+             'ADD_OP',
+             'MUL_OP',
+             'COMP_OP',
+             'IDENTIFIER'
+         ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 literals = '()={}'
 
