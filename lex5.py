@@ -37,6 +37,7 @@ tokens = (
 
 literals = '();={}><,'
 
+
 def t_DIGIT(t):
     r'\d+(\.\d+)?'
     try:
@@ -81,12 +82,14 @@ def t_EQUAL(t):
     r'=='
     return t
 
+
 def t_NOTEQUAL(t):
     r'!='
     return t
 
+
 def t_COMP_OP(t):
-    r'[[^=!]([=!]=)[^=]]'
+    r'==|!=|=!|<|>'
     return t
 
 
@@ -106,7 +109,7 @@ t_ignore = ' \t'
 
 
 def t_error(t):
-    print("Illegal character '%s'" % repr(t.value[0]))
+    print("Illegal character '%s' line : %i" % (repr(t.value[0]), t.lineno))
     t.lexer.skip(1)
 
 
@@ -114,7 +117,7 @@ lex.lex()
 
 if __name__ == "__main__":
     import sys
-    import time
+
     prog = open(sys.argv[1]).read()
 
     lex.input(prog)

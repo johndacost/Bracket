@@ -74,6 +74,11 @@ def p_assign(p):
     p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
+def p_compare(p):
+    ''' compare : expression COMP_OP expression '''
+    p[0] = AST.CompNode(p[1],p[2],p[3])
+
+
 def p_assign_bool(p):
     ''' assignation : BOOL IDENTIFIER '=' TRUE '\n'
     | BOOL IDENTIFIER '=' FALSE '\n' '''
