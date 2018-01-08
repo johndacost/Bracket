@@ -54,7 +54,7 @@ def p_expression_op(p):
 
 
 def p_expression_num_or_var(p):
-    '''expression : NUMBER
+    '''expression : DIGIT
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 

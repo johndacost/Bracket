@@ -1,7 +1,14 @@
-= 231321
-=! ()
-!=
-==
-<>
-!!
-== ! =
+number mon_nombre
+text VarText
+bool isPlaying
+list maList
+
+number num = 23
+text tex = "Bonjour"
+bool isTrue = true
+list myList{2, 4, 5, 6}
+
+mon_nombre = 0
+VarText = " ? number, text, bool"
+isPlaying = false
+myList{2} = 4
