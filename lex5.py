@@ -35,7 +35,7 @@ tokens = (
              'NOTEQUAL'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '();={}><,'
+literals = '();={}><,."'
 
 
 def t_DIGIT(t):
