@@ -131,6 +131,7 @@ class AssignDeclareNode(Node):
     def __init__(self, type_var, children):
         Node.__init__(self, children)
         self.type_var = type_var
+
         try:
             self.nbargs = len(children)
         except AttributeError:
@@ -139,6 +140,30 @@ class AssignDeclareNode(Node):
     def __repr__(self):
         return "%s assign" % self.type_var
 
+
+class ConditionNode(Node):
+    def __init__(self, comparator, children):
+        Node.__init__(self, children)
+        self.comparator = comparator
+
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
+    def __repr__(self):
+        return "%s (%s)" % (self.comparator, self.nbargs)
+
+
+class IfNode(Node):
+    type = 'if'
+
+
+class SwitchNode(Node):
+    type = 'switch'
+
+class CaseNode(Node):
+    type = 'case'
 
 class PrintNode(Node):
     type = 'print'

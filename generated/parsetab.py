@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSDIGIT CHARACTERS BOOLEAN CONTEXT_OP ADD_OP MUL_OP COMP_OP IDENTIFIER EQUAL NOTEQUAL STEP FOR TO WHILE IF ELSE SWITCH CASE DEFAULT PRINT PI TRUE FALSE NUMBER LIST TEXT BOOL BREAK LOOP programme : statement\n    | statement programme programme : statement ';' programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : expression ADD_OP expression\n            | expression MUL_OP expression expression : DIGIT  expression : TRUE\n    | FALSE expression : IDENTIFIER  expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS  assignation : BOOL IDENTIFIER '=' BOOLEAN  assignation : NUMBER IDENTIFIER '=' DIGIT  assignation : TEXT IDENTIFIER '=' CHARACTERS "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSDIGIT CHARACTERS BOOLEAN CONTEXT_OP ADD_OP MUL_OP COMP_OP IDENTIFIER EQUAL NOTEQUAL STEP FOR TO WHILE IF ELSE SWITCH CASE DEFAULT PRINT PI TRUE FALSE NUMBER LIST TEXT BOOL BREAK LOOP programme : statement\n    | statement programme programme : statement ';' programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : IF condition '{' programme '}'  structure : SWITCH condition '{' programme '}'  structure : CASE DIGIT '{' programme '}'  expression : expression ADD_OP expression\n            | expression MUL_OP expression  expression : IDENTIFIER  expression : DIGIT  expression : TRUE\n    | FALSE expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS  assignation : BOOL IDENTIFIER '=' BOOLEAN  assignation : NUMBER IDENTIFIER '=' DIGIT  assignation : TEXT IDENTIFIER '=' CHARACTERS  condition : expression EQUAL expression\n    | expression NOTEQUAL expression\n    | expression '>' expression\n    | expression '<' expression "
     
-_lr_action_items = {'PRINT':([0,2,3,4,11,12,14,15,16,17,26,31,32,33,34,35,36,37,39,],[5,5,-4,-5,5,-6,-10,-11,-12,-13,-15,5,-8,-9,-14,-16,-17,-18,-7,]),'BOOL':([0,2,3,4,11,12,14,15,16,17,26,31,32,33,34,35,36,37,39,],[6,6,-4,-5,6,-6,-10,-11,-12,-13,-15,6,-8,-9,-14,-16,-17,-18,-7,]),'NUMBER':([0,2,3,4,11,12,14,15,16,17,26,31,32,33,34,35,36,37,39,],[7,7,-4,-5,7,-6,-10,-11,-12,-13,-15,7,-8,-9,-14,-16,-17,-18,-7,]),'TEXT':([0,2,3,4,11,12,14,15,16,17,26,31,32,33,34,35,36,37,39,],[8,8,-4,-5,8,-6,-10,-11,-12,-13,-15,8,-8,-9,-14,-16,-17,-18,-7,]),'WHILE':([0,2,3,4,11,12,14,15,16,17,26,31,32,33,34,35,36,37,39,],[9,9,-4,-5,9,-6,-10,-11,-12,-13,-15,9,-8,-9,-14,-16,-17,-18,-7,]),'$end':([1,2,3,4,10,12,14,15,16,17,23,26,32,33,34,35,36,37,39,],[0,-1,-4,-5,-2,-6,-10,-11,-12,-13,-3,-15,-8,-9,-14,-16,-17,-18,-7,]),'}':([2,3,4,10,12,14,15,16,17,23,26,32,33,34,35,36,37,38,39,],[-1,-4,-5,-2,-6,-10,-11,-12,-13,-3,-15,-8,-9,-14,-16,-17,-18,39,-7,]),';':([2,3,4,12,14,15,16,17,26,32,33,34,35,36,37,39,],[11,-4,-5,-6,-10,-11,-12,-13,-15,-8,-9,-14,-16,-17,-18,-7,]),'DIGIT':([5,9,13,18,24,25,29,],[14,14,14,14,14,14,36,]),'TRUE':([5,9,13,18,24,25,],[15,15,15,15,15,15,]),'FALSE':([5,9,13,18,24,25,],[16,16,16,16,16,16,]),'IDENTIFIER':([5,6,7,8,9,13,18,24,25,],[17,19,20,21,17,17,17,17,17,]),'(':([5,9,13,18,24,25,],[18,18,18,18,18,18,]),'ADD_OP':([5,9,12,13,14,15,16,17,18,22,24,25,26,27,32,33,34,],[13,13,24,13,-10,-11,-12,-13,13,24,13,13,-15,24,-8,-9,-14,]),'MUL_OP':([12,14,15,16,17,22,26,27,32,33,34,],[25,-10,-11,-12,-13,25,-15,25,25,-9,-14,]),'{':([14,15,16,17,22,26,32,33,34,],[-10,-11,-12,-13,31,-15,-8,-9,-14,]),')':([14,15,16,17,26,27,32,33,34,],[-10,-11,-12,-13,-15,34,-8,-9,-14,]),'=':([19,20,21,],[28,29,30,]),'BOOLEAN':([28,],[35,]),'CHARACTERS':([30,],[37,]),}
+_lr_action_items = {'PRINT':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[5,5,-4,-5,5,-6,-13,-14,-15,-16,-18,5,5,5,5,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'BOOL':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[6,6,-4,-5,6,-6,-13,-14,-15,-16,-18,6,6,6,6,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'NUMBER':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[7,7,-4,-5,7,-6,-13,-14,-15,-16,-18,7,7,7,7,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'TEXT':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[8,8,-4,-5,8,-6,-13,-14,-15,-16,-18,8,8,8,8,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'WHILE':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[9,9,-4,-5,9,-6,-13,-14,-15,-16,-18,9,9,9,9,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'IF':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[10,10,-4,-5,10,-6,-13,-14,-15,-16,-18,10,10,10,10,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'SWITCH':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[11,11,-4,-5,11,-6,-13,-14,-15,-16,-18,11,11,11,11,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'CASE':([0,2,3,4,14,15,17,18,19,20,33,38,39,44,45,46,47,48,49,50,51,60,61,62,63,],[12,12,-4,-5,12,-6,-13,-14,-15,-16,-18,12,12,12,12,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'$end':([1,2,3,4,13,15,17,18,19,20,30,33,46,47,48,49,50,51,60,61,62,63,],[0,-1,-4,-5,-2,-6,-13,-14,-15,-16,-3,-18,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'}':([2,3,4,13,15,17,18,19,20,30,33,46,47,48,49,50,51,52,53,58,59,60,61,62,63,],[-1,-4,-5,-2,-6,-13,-14,-15,-16,-3,-18,-11,-12,-17,-19,-20,-21,60,61,62,63,-7,-8,-9,-10,]),';':([2,3,4,15,17,18,19,20,33,46,47,48,49,50,51,60,61,62,63,],[14,-4,-5,-6,-13,-14,-15,-16,-18,-11,-12,-17,-19,-20,-21,-7,-8,-9,-10,]),'IDENTIFIER':([5,6,7,8,9,10,11,16,21,31,32,40,41,42,43,],[17,22,23,24,17,17,17,17,17,17,17,17,17,17,17,]),'DIGIT':([5,9,10,11,12,16,21,31,32,36,40,41,42,43,],[18,18,18,18,29,18,18,18,18,50,18,18,18,18,]),'TRUE':([5,9,10,11,16,21,31,32,40,41,42,43,],[19,19,19,19,19,19,19,19,19,19,19,19,]),'FALSE':([5,9,10,11,16,21,31,32,40,41,42,43,],[20,20,20,20,20,20,20,20,20,20,20,20,]),'(':([5,9,10,11,16,21,31,32,40,41,42,43,],[21,21,21,21,21,21,21,21,21,21,21,21,]),'ADD_OP':([5,9,10,11,15,16,17,18,19,20,21,25,27,31,32,33,34,40,41,42,43,46,47,48,54,55,56,57,],[16,16,16,16,31,16,-13,-14,-15,-16,16,31,31,16,16,-18,31,16,16,16,16,-11,-12,-17,31,31,31,31,]),'MUL_OP':([15,17,18,19,20,25,27,33,34,46,47,48,54,55,56,57,],[32,-13,-14,-15,-16,32,32,-18,32,32,-12,-17,32,32,32,32,]),'{':([17,18,19,20,25,26,28,29,33,46,47,48,54,55,56,57,],[-13,-14,-15,-16,38,39,44,45,-18,-11,-12,-17,-22,-23,-24,-25,]),'EQUAL':([17,18,19,20,27,33,46,47,48,],[-13,-14,-15,-16,40,-18,-11,-12,-17,]),'NOTEQUAL':([17,18,19,20,27,33,46,47,48,],[-13,-14,-15,-16,41,-18,-11,-12,-17,]),'>':([17,18,19,20,27,33,46,47,48,],[-13,-14,-15,-16,42,-18,-11,-12,-17,]),'<':([17,18,19,20,27,33,46,47,48,],[-13,-14,-15,-16,43,-18,-11,-12,-17,]),')':([17,18,19,20,33,34,46,47,48,],[-13,-14,-15,-16,-18,48,-11,-12,-17,]),'=':([22,23,24,],[35,36,37,]),'BOOLEAN':([35,],[49,]),'CHARACTERS':([37,],[51,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,2,11,31,],[1,10,23,38,]),'statement':([0,2,11,31,],[2,2,2,2,]),'assignation':([0,2,11,31,],[3,3,3,3,]),'structure':([0,2,11,31,],[4,4,4,4,]),'expression':([5,9,13,18,24,25,],[12,22,26,27,32,33,]),}
+_lr_goto_items = {'programme':([0,2,14,38,39,44,45,],[1,13,30,52,53,58,59,]),'statement':([0,2,14,38,39,44,45,],[2,2,2,2,2,2,2,]),'assignation':([0,2,14,38,39,44,45,],[3,3,3,3,3,3,3,]),'structure':([0,2,14,38,39,44,45,],[4,4,4,4,4,4,4,]),'expression':([5,9,10,11,16,21,31,32,40,41,42,43,],[15,25,27,27,33,34,46,47,54,55,56,57,]),'condition':([10,11,],[26,28,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -33,15 +33,22 @@ _lr_productions = [
   ('statement -> structure','statement',1,'p_statement','parser5.py',39),
   ('statement -> PRINT expression','statement',2,'p_statement_print','parser5.py',44),
   ('structure -> WHILE expression { programme }','structure',5,'p_structure','parser5.py',49),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',54),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',55),
-  ('expression -> DIGIT','expression',1,'p_expression_num','parser5.py',65),
-  ('expression -> TRUE','expression',1,'p_expression_bool','parser5.py',70),
-  ('expression -> FALSE','expression',1,'p_expression_bool','parser5.py',71),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_var','parser5.py',76),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',81),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',86),
-  ('assignation -> BOOL IDENTIFIER = BOOLEAN','assignation',4,'p_assign_bool','parser5.py',97),
-  ('assignation -> NUMBER IDENTIFIER = DIGIT','assignation',4,'p_assign_number','parser5.py',103),
-  ('assignation -> TEXT IDENTIFIER = CHARACTERS','assignation',4,'p_assign_text','parser5.py',109),
+  ('structure -> IF condition { programme }','structure',5,'p_structure_if','parser5.py',54),
+  ('structure -> SWITCH condition { programme }','structure',5,'p_structure_switch','parser5.py',59),
+  ('structure -> CASE DIGIT { programme }','structure',5,'p_structure_case','parser5.py',64),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser5.py',69),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser5.py',70),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_var','parser5.py',75),
+  ('expression -> DIGIT','expression',1,'p_expression_num','parser5.py',80),
+  ('expression -> TRUE','expression',1,'p_expression_bool','parser5.py',85),
+  ('expression -> FALSE','expression',1,'p_expression_bool','parser5.py',86),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser5.py',91),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser5.py',96),
+  ('assignation -> BOOL IDENTIFIER = BOOLEAN','assignation',4,'p_assign_bool','parser5.py',107),
+  ('assignation -> NUMBER IDENTIFIER = DIGIT','assignation',4,'p_assign_number','parser5.py',113),
+  ('assignation -> TEXT IDENTIFIER = CHARACTERS','assignation',4,'p_assign_text','parser5.py',119),
+  ('condition -> expression EQUAL expression','condition',3,'p_condition','parser5.py',125),
+  ('condition -> expression NOTEQUAL expression','condition',3,'p_condition','parser5.py',126),
+  ('condition -> expression > expression','condition',3,'p_condition','parser5.py',127),
+  ('condition -> expression < expression','condition',3,'p_condition','parser5.py',128),
 ]

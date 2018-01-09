@@ -50,9 +50,24 @@ def p_structure(p):
     p[0] = AST.WhileNode([p[2], p[4]])
 
 
+def p_structure_if(p):
+    ''' structure : IF condition '{' programme '}' '''
+    p[0] = AST.IfNode([p[2], p[4]])
+
+
+def p_structure_switch(p):
+    ''' structure : SWITCH condition '{' programme '}' '''
+    p[0] = AST.IfNode([p[2], p[4]])
+
+
+def p_structure_case(p):
+    ''' structure : CASE DIGIT '{' programme '}' '''
+    p[0] = AST.CaseNode([p[2], p[4]])
+
+
 def p_expression_op(p):
-    '''expression : expression ADD_OP expression
-            | expression MUL_OP expression'''
+    ''' expression : expression ADD_OP expression
+            | expression MUL_OP expression '''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 
@@ -69,11 +84,6 @@ def p_expression_num(p):
 def p_expression_bool(p):
     ''' expression : TRUE
     | FALSE'''
-    p[0] = AST.TokenNode(p[1])
-
-
-def p_expression_var(p):
-    ''' expression : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
 
@@ -109,6 +119,14 @@ def p_assign_text(p):
     ''' assignation : TEXT IDENTIFIER '=' CHARACTERS '''
     vars[p[2]] = ('TEXT', p[4])
     p[0] = AST.AssignDeclareNode(p[1], [AST.TokenNode(p[2]), AST.TokenNode(p[4])])
+
+
+def p_condition(p):
+    ''' condition : expression EQUAL expression
+    | expression NOTEQUAL expression
+    | expression '>' expression
+    | expression '<' expression '''
+    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])
 
 
 def p_error(p):
