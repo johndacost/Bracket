@@ -123,6 +123,10 @@ class OpNode(Node):
         return "%s (%s)" % (self.op, self.nbargs)
 
 
+class TypeNode(Node):
+    type = "type"
+
+
 class AssignNode(Node):
     type = '='
 
@@ -162,8 +166,10 @@ class IfNode(Node):
 class SwitchNode(Node):
     type = 'switch'
 
+
 class CaseNode(Node):
     type = 'case'
+
 
 class PrintNode(Node):
     type = 'print'
@@ -172,6 +178,12 @@ class PrintNode(Node):
 class WhileNode(Node):
     type = 'while'
 
+
+class LoopNode(Node):
+    type = 'loop'
+
+class ForNode(Node):
+    type = 'for'
 
 class EntryNode(Node):
     type = 'ENTRY'

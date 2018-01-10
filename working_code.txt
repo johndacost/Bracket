@@ -1,7 +1,13 @@
 number num = 2
 
-if num == 2 {
+if num != 2 {
     num = 22
+}
+
+if num != 2 {
+    num = 5
+} else {
+    num = 6
 }
 
 switch num {
@@ -15,4 +21,17 @@ switch num {
         }
 }
 
+while num == 3 {
+    num = num + 1
+}
 
+loop {
+    num = 10
+    break
+}
+
+for 1 to 3 step 1 {
+	num = 2
+}
+
+print{2}

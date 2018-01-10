@@ -45,7 +45,15 @@ def p_statement(p):
 
 def p_statement_print(p):
     """ statement : PRINT '{' expression '}' """
-    p[0] = AST.PrintNode(p[2])
+    p[0] = AST.PrintNode(p[3])
+
+
+def p_condition(p):
+    """ condition : expression EQUAL expression
+    | expression NOTEQUAL expression
+    | expression '>' expression
+    | expression '<' expression """
+    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])
 
 
 def p_structure_while(p):
@@ -53,9 +61,24 @@ def p_structure_while(p):
     p[0] = AST.WhileNode([p[2], p[4]])
 
 
+def p_structure_loop(p):
+    ''' structure : LOOP '{' programme BREAK '}' '''
+    p[0] = AST.LoopNode(p[3])
+
+
+def p_structure_for(p):
+    ''' structure : FOR expression TO expression STEP expression '{' programme '}' '''
+    p[0] = AST.ForNode([p[2], p[4], p[6], p[8]])
+
+
 def p_structure_if(p):
     ''' structure : IF condition '{' programme '}' '''
     p[0] = AST.IfNode([p[2], p[4]])
+
+
+def p_structure_if_else(p):
+    ''' structure : IF condition '{' programme '}' ELSE '{' programme '}' '''
+    p[0] = AST.IfNode([p[2], p[4], p[8]])
 
 
 def p_structure_switch(p):
@@ -105,6 +128,14 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
 
 
+def p_type(p):
+    ''' type : NUMBER
+        | BOOL
+        | TEXT
+        | LIST '''
+    p[0] = AST.TypeNode(AST.TokenNode(p[1]))
+
+
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     vars[p[1]] = (vars[p[1]][0], p[3])
@@ -128,14 +159,6 @@ def p_assign_text(p):
     ''' assignation : TEXT IDENTIFIER '=' CHARACTERS '''
     vars[p[2]] = ("TEXT", p[4])
     p[0] = AST.AssignDeclareNode(p[1], [AST.TokenNode(p[2]), AST.TokenNode(p[4])])
-
-
-def p_condition(p):
-    ''' condition : expression EQUAL expression
-    | expression NOTEQUAL expression
-    | expression '>' expression
-    | expression '<' expression '''
-    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])
 
 
 def p_error(p):
