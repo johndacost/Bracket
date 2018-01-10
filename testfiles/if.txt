@@ -1,15 +1,15 @@
 if true {
-	print("ok")
+	print{"ok"}
 }
 
 if false {
-	print("ko")
+	print{"ko"}
 } else {
-	print("ok")
+	print{"ok"}
 }
 
 if 2 == 2 {
-	print("ok")
+	print{"ok"}
 } else {
-	print("ko")
+	print{"ko"}
 }

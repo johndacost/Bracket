@@ -1,5 +1,5 @@
 number i = 0
 
 for i to 3 step 1 {
-	print("FOR")
+	print{"FOR"}
 }

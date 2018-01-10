@@ -2,11 +2,11 @@ number var = 6
 
 switch var {
         case 2 {
-		print("ko")
+		print{"ko"}
 		break
         }
         case 6 {
-            	print("ok")
+            	print{"ok"}
 		break
         }
 }

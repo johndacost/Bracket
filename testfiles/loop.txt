@@ -1,4 +1,4 @@
 loop {
-	print("LOOP")
+	print{"LOOP"}
 	break
 }

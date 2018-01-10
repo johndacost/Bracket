@@ -25,7 +25,7 @@ vars = {}
 
 def p_programme(p):
     ''' programme : statement
-    | statement programme'''
+    | statement programme '''
     try:
         p[0] = AST.ProgramNode([p[1]] + p[2].children)
     except Exception as e:
@@ -44,7 +44,7 @@ def p_statement(p):
 
 
 def p_statement_print(p):
-    ''' statement : PRINT expression '''
+    """ statement : PRINT '{' expression '}' """
     p[0] = AST.PrintNode(p[2])
 
 
@@ -64,7 +64,7 @@ def p_structure_switch(p):
 
 
 def p_structure_case(p):
-    ''' structure : CASE DIGIT '{' programme '}' '''
+    ''' structure : CASE DIGIT '{' programme BREAK '}' '''
     p[0] = AST.CaseNode([p[2], p[4]])
 
 
@@ -84,9 +84,14 @@ def p_expression_num(p):
     p[0] = AST.TokenNode(p[1])
 
 
+def p_expression_text(p):
+    ''' expression : TEXT '''
+    p[0] = AST.TokenNode(p[1])
+
+
 def p_expression_bool(p):
     ''' expression : TRUE
-    | FALSE'''
+    | FALSE '''
     p[0] = AST.TokenNode(p[1])
 
 
@@ -100,14 +105,15 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
 
 
-# def p_assign(p):
-#     ''' assignation : IDENTIFIER '=' expression '''
-#     vars[p[1]] = (vars[p[1]][0], p[3])
-#     p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
+def p_assign(p):
+    ''' assignation : IDENTIFIER '=' expression '''
+    vars[p[1]] = (vars[p[1]][0], p[3])
+    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
 def p_assign_bool(p):
-    ''' assignation : BOOL IDENTIFIER '=' BOOLEAN '''
+    """ assignation : BOOL IDENTIFIER '=' TRUE
+     | BOOL IDENTIFIER '=' FALSE """
     vars[p[2]] = ("BOOL", p[4])
     p[0] = AST.AssignDeclareNode(p[1], [AST.TokenNode(p[2]), AST.TokenNode(p[4])])
 
@@ -143,9 +149,10 @@ def parse(program):
 yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
-
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
+    time.sleep(1)
+
     print(result)
     if result:
         graph = result.makegraphicaltree()
