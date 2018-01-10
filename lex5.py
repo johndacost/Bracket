@@ -9,28 +9,36 @@ reserved_words = (
     'else',
     'switch',
     'case',
+    'default',
     'print',
     'PI',
     'true',
-    'false'
+    'false',
+    'number',
+    'list',
+    'text',
+    'bool',
+    'break',
+    'loop'
 )
 
 tokens = (
-             'NUMBER',
-             'TEXT',
-             'LIST',
-             'BOOL',
-             'CONTEXT_OP'
+             'DIGIT',
+             'CHARACTERS',
+             'BOOLEAN',
+             'CONTEXT_OP',
              'ADD_OP',
              'MUL_OP',
              'COMP_OP',
-             'IDENTIFIER'
+             'IDENTIFIER',
+             'EQUAL',
+             'NOTEQUAL'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '()={}'
+literals = '();={}><,."'
 
 
-def t_NUMBER(t):
+def t_DIGIT(t):
     r'\d+(\.\d+)?'
     try:
         t.value = float(t.value)
@@ -40,12 +48,12 @@ def t_NUMBER(t):
     return t
 
 
-def t_TEXT(t):
-    r'"\w+"'
+def t_CHARACTERS(t):
+    r'".*"'
     return t
 
 
-def t_BOOL(t):
+def t_BOOLEAN(t):
     r'true|false'
     try:
         t.value = bool(t.value)
@@ -70,6 +78,16 @@ def t_MUL_OP(t):
     return t
 
 
+def t_EQUAL(t):
+    r'=='
+    return t
+
+
+def t_NOTEQUAL(t):
+    r'!='
+    return t
+
+
 def t_COMP_OP(t):
     r'==|!=|=!|<|>'
     return t
@@ -91,7 +109,7 @@ t_ignore = ' \t'
 
 
 def t_error(t):
-    print("Illegal character '%s' line : %i" % (repr(t.value[0]),t.lineno))
+    print("Illegal character '%s' line : %i" % (repr(t.value[0]), t.lineno))
     t.lexer.skip(1)
 
 
