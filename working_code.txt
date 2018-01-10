@@ -1,0 +1,18 @@
+number num = 2
+
+if num == 2 {
+    num = 22
+}
+
+switch num {
+        case 2 {
+            num = 2
+		    break
+        }
+        case 4 {
+            num = 4
+		    break
+        }
+}
+
+

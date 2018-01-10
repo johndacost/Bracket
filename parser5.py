@@ -48,8 +48,8 @@ def p_statement_print(p):
     p[0] = AST.PrintNode(p[2])
 
 
-def p_structure(p):
-    ''' structure : WHILE expression '{' programme '}' '''
+def p_structure_while(p):
+    ''' structure : WHILE condition '{' programme '}' '''
     p[0] = AST.WhileNode([p[2], p[4]])
 
 
@@ -59,12 +59,12 @@ def p_structure_if(p):
 
 
 def p_structure_switch(p):
-    ''' structure : SWITCH condition '{' programme '}' '''
+    ''' structure : SWITCH expression '{' programme '}' '''
     p[0] = AST.IfNode([p[2], p[4]])
 
 
 def p_structure_case(p):
-    ''' structure : CASE DIGIT '{' programme BREAK '}' '''
+    ''' structure : CASE expression '{' programme BREAK '}' '''
     p[0] = AST.CaseNode([p[2], p[4]])
 
 
