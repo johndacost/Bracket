@@ -21,3 +21,8 @@ loop {
     num = 2
     break
 }
+
+for 1 to 3 step 1 {
+	num = 3
+	number i = 1
+}

@@ -82,8 +82,24 @@ def compile(self):
     return pycode
 
 
+@addToClass(AST.ForNode)
+def compile(self):
+    pycode = "for _ in range("
+    pycode += number_to_int(self.children[0].compile())
+    pycode += ","
+    pycode += number_to_int(self.children[1].compile())
+    pycode += ","
+    pycode += number_to_int(self.children[2].compile())
+    pycode += ") :\n"
+    pycode += add_indentation(self.children[3].compile())
+    return pycode
+
+
+def number_to_int(string_number):
+    return str(int(float(string_number)))
+
+
 def add_indentation(text):
-    print(text)
     lines = text.split('\n')
     lines.pop()
     result = ""
