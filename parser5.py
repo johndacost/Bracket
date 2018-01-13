@@ -166,7 +166,14 @@ def p_error(p):
 
 
 def parse(program):
-    return yacc.parse(program)
+    result = yacc.parse(program)
+    if result:
+        graph = result.makegraphicaltree()
+        name = os.path.splitext(sys.argv[1])[0] + "-ast.pdf"
+        graph.write_pdf(name)
+        print("wrote ast to", name)
+
+    return result
 
 
 yacc.yacc(outputdir='generated')

@@ -1,3 +1,8 @@
-if 3 == 2 {
-    number num = 22
-}
+number num = 5
+text tex = "Salut"
+
+num = 12
+num = 3 + 2
+num = 3 - 2
+num = 3 * 2
+num = 3 / 2

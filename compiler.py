@@ -9,13 +9,18 @@ operations = {
 }
 
 
+@addToClass(AST.ProgramNode)
+def compile(self):
+    pycode = ""
+    for c in self.children:
+        pycode += c.compile()
+    return pycode
+
+
 @addToClass(AST.TokenNode)
 def compile(self):
     pycode = ""
-    if isinstance(self.tok, str):
-        pycode += "%s = " % self.tok
-    else:
-        pycode += "%s\n" % self.tok
+    pycode += "%s" % self.tok
     return pycode
 
 
@@ -26,26 +31,36 @@ def compile(self):
     if len(self.children) == 1:
         pycode += "-"
         pycode += self.children[0].compile()
+    elif len(self.children) == 2:
+        pycode += self.children[0].compile()
+        pycode += " " + self.op + " "
+        pycode += self.children[1].compile()
     else:
         for c in self.children:
-            pycode += c.compile
-        pycode += operations[self.op] + "\n"
+            pycode += c.compile()
+        pycode += self.op + "\n"
 
     return pycode
 
 
 @addToClass(AST.AssignNode)
 def compile(self):
-    pycode = self.children[0].compile()
-    pycode += " %s = " % self.children[0].tok
-    pycode += " %s\n" % self.children[1].tok
+    pycode = "%s = " % self.children[0].tok
+    pycode += "%s\n" % self.children[1].compile()
+    return pycode
+
+
+@addToClass(AST.AssignDeclareNode)
+def compile(self):
+    pycode = "%s" % self.children[0].tok
+    pycode += " = %s\n" % self.children[1].tok
     return pycode
 
 
 @addToClass(AST.PrintNode)
 def compile(self):
     pycode = "print("
-    pycode += "%s)\n" %self.children[0].compile()
+    pycode += "%s)\n" % self.children[0].compile()
     return pycode
 
 
@@ -53,6 +68,7 @@ def compile(self):
 def compile(self):
     while self.children[0].compile():
         self.children[1].compile()
+
 
 if __name__ == '__main__':
     from parser5 import parse
