@@ -21,6 +21,8 @@ def compile(self):
 def compile(self):
     pycode = ""
     pycode += "%s" % self.tok
+    if self.tok == "break":
+        pycode += "\n"
     return pycode
 
 
@@ -73,6 +75,13 @@ def compile(self):
     return pycode
 
 
+@addToClass(AST.LoopNode)
+def compile(self):
+    pycode = "while True :\n"
+    pycode += add_indentation(self.children[0].compile())
+    return pycode
+
+
 def add_indentation(text):
     print(text)
     lines = text.split('\n')
@@ -80,7 +89,6 @@ def add_indentation(text):
     result = ""
     for line in lines:
         result += "    " + line + "\n"
-
     return result
 
 

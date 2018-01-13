@@ -43,6 +43,11 @@ def p_statement(p):
     p[0] = p[1]
 
 
+def p_statement_break(p):
+    """ statement : BREAK """
+    p[0] = AST.TokenNode(p[1])
+
+
 def p_statement_print(p):
     """ statement : PRINT '{' expression '}' """
     p[0] = AST.PrintNode(p[3])
@@ -62,7 +67,7 @@ def p_structure_while(p):
 
 
 def p_structure_loop(p):
-    ''' structure : LOOP '{' programme BREAK '}' '''
+    ''' structure : LOOP '{' programme '}' '''
     p[0] = AST.LoopNode(p[3])
 
 
@@ -82,7 +87,7 @@ def p_structure_if_else(p):
 
 
 def p_structure_switch(p):
-    ''' structure : SWITCH expression '{' programme '}' '''
+    ''' structure : SWITCH expression '{' programme statement '}' '''
     p[0] = AST.IfNode([p[2], p[4]])
 
 

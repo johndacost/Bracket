@@ -16,3 +16,8 @@ while 3 == 5 {
         num = 0
     }
 }
+
+loop {
+    num = 2
+    break
+}

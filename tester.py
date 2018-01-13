@@ -11,3 +11,6 @@ while 3.0 == 5.0:
     num = 1.0
     while num == 2.0:
         num = 0.0
+while True :
+    num = 2.0
+    break
