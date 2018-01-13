@@ -66,8 +66,31 @@ def compile(self):
 
 @addToClass(AST.WhileNode)
 def compile(self):
-    while self.children[0].compile():
-        self.children[1].compile()
+    pycode = "while "
+    pycode += self.children[0].compile()
+    pycode += ":\n"
+    pycode += add_indentation(self.children[1].compile())
+    return pycode
+
+
+def add_indentation(text):
+    print(text)
+    lines = text.split('\n')
+    lines.pop()
+    result = ""
+    for line in lines:
+        result += "    " + line + "\n"
+
+    return result
+
+
+@addToClass(AST.ConditionNode)
+def compile(self):
+    pycode = ""
+    pycode += self.children[0].compile()
+    pycode += " " + self.comparator + " "
+    pycode += self.children[1].compile()
+    return pycode
 
 
 if __name__ == '__main__':

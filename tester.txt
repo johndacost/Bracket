@@ -6,3 +6,13 @@ num = 3 + 2
 num = 3 - 2
 num = 3 * 2
 num = 3 / 2
+
+print{num}
+
+while 3 == 5 {
+    num = 3
+    num = 1
+    while num == 2 {
+        num = 0
+    }
+}
