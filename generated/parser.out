@@ -27,13 +27,13 @@ Rule 13    structure -> LOOP { programme }
 Rule 14    structure -> FOR expression TO expression STEP expression { programme }
 Rule 15    structure -> IF condition { programme }
 Rule 16    structure -> IF condition { programme } ELSE { programme }
-Rule 17    structure -> SWITCH expression { programme statement }
-Rule 18    structure -> CASE expression { programme BREAK }
+Rule 17    structure -> SWITCH expression { programme }
+Rule 18    structure -> CASE expression { programme }
 Rule 19    expression -> expression ADD_OP expression
 Rule 20    expression -> expression MUL_OP expression
 Rule 21    expression -> IDENTIFIER
 Rule 22    expression -> DIGIT
-Rule 23    expression -> TEXT
+Rule 23    expression -> CHARACTERS
 Rule 24    expression -> TRUE
 Rule 25    expression -> FALSE
 Rule 26    expression -> ( expression )
@@ -59,9 +59,9 @@ Terminals, with rules where they appear
 ADD_OP               : 19 27
 BOOL                 : 29 33 34
 BOOLEAN              : 
-BREAK                : 6 18
+BREAK                : 6
 CASE                 : 18
-CHARACTERS           : 36
+CHARACTERS           : 23 36
 COMP_OP              : 
 CONTEXT_OP           : 
 DEFAULT              : 
@@ -81,7 +81,7 @@ PI                   :
 PRINT                : 7
 STEP                 : 14
 SWITCH               : 17
-TEXT                 : 23 30 36
+TEXT                 : 30 36
 TO                   : 14
 TRUE                 : 24 33
 WHILE                : 12
@@ -95,7 +95,7 @@ assignation          : 4
 condition            : 12 15 16
 expression           : 7 8 8 9 9 10 10 11 11 14 14 14 17 18 19 19 20 20 26 27 32
 programme            : 2 3 12 13 14 15 16 16 17 18 0
-statement            : 1 2 3 17
+statement            : 1 2 3
 structure            : 5
 type                 : 
 
@@ -121,8 +121,8 @@ state 0
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -170,21 +170,9 @@ state 2
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
-  ! shift/reduce conflict for BREAK resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for IDENTIFIER resolved as shift
-  ! shift/reduce conflict for BOOL resolved as shift
-  ! shift/reduce conflict for NUMBER resolved as shift
-  ! shift/reduce conflict for TEXT resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for LOOP resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for SWITCH resolved as shift
-  ! shift/reduce conflict for CASE resolved as shift
     $end            reduce using rule 1 (programme -> statement .)
     }               reduce using rule 1 (programme -> statement .)
     ;               shift and go to state 18
@@ -200,19 +188,6 @@ state 2
     IF              shift and go to state 14
     SWITCH          shift and go to state 15
     CASE            shift and go to state 16
-
-  ! BREAK           [ reduce using rule 1 (programme -> statement .) ]
-  ! PRINT           [ reduce using rule 1 (programme -> statement .) ]
-  ! IDENTIFIER      [ reduce using rule 1 (programme -> statement .) ]
-  ! BOOL            [ reduce using rule 1 (programme -> statement .) ]
-  ! NUMBER          [ reduce using rule 1 (programme -> statement .) ]
-  ! TEXT            [ reduce using rule 1 (programme -> statement .) ]
-  ! WHILE           [ reduce using rule 1 (programme -> statement .) ]
-  ! LOOP            [ reduce using rule 1 (programme -> statement .) ]
-  ! FOR             [ reduce using rule 1 (programme -> statement .) ]
-  ! IF              [ reduce using rule 1 (programme -> statement .) ]
-  ! SWITCH          [ reduce using rule 1 (programme -> statement .) ]
-  ! CASE            [ reduce using rule 1 (programme -> statement .) ]
 
     statement                      shift and go to state 2
     programme                      shift and go to state 17
@@ -329,7 +304,7 @@ state 11
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -337,7 +312,7 @@ state 11
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -360,7 +335,7 @@ state 13
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -368,7 +343,7 @@ state 13
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -388,7 +363,7 @@ state 14
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -396,7 +371,7 @@ state 14
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -407,12 +382,12 @@ state 14
 
 state 15
 
-    (17) structure -> SWITCH . expression { programme statement }
+    (17) structure -> SWITCH . expression { programme }
     (19) expression -> . expression ADD_OP expression
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -420,7 +395,7 @@ state 15
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -430,12 +405,12 @@ state 15
 
 state 16
 
-    (18) structure -> CASE . expression { programme BREAK }
+    (18) structure -> CASE . expression { programme }
     (19) expression -> . expression ADD_OP expression
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -443,7 +418,7 @@ state 16
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -457,18 +432,6 @@ state 17
 
     $end            reduce using rule 2 (programme -> statement programme .)
     }               reduce using rule 2 (programme -> statement programme .)
-    BREAK           reduce using rule 2 (programme -> statement programme .)
-    PRINT           reduce using rule 2 (programme -> statement programme .)
-    IDENTIFIER      reduce using rule 2 (programme -> statement programme .)
-    BOOL            reduce using rule 2 (programme -> statement programme .)
-    NUMBER          reduce using rule 2 (programme -> statement programme .)
-    TEXT            reduce using rule 2 (programme -> statement programme .)
-    WHILE           reduce using rule 2 (programme -> statement programme .)
-    LOOP            reduce using rule 2 (programme -> statement programme .)
-    FOR             reduce using rule 2 (programme -> statement programme .)
-    IF              reduce using rule 2 (programme -> statement programme .)
-    SWITCH          reduce using rule 2 (programme -> statement programme .)
-    CASE            reduce using rule 2 (programme -> statement programme .)
 
 
 state 18
@@ -491,8 +454,8 @@ state 18
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -519,7 +482,7 @@ state 19
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -527,7 +490,7 @@ state 19
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -542,7 +505,7 @@ state 20
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -550,7 +513,7 @@ state 20
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -611,7 +574,7 @@ state 26
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -619,7 +582,7 @@ state 26
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -691,33 +654,33 @@ state 28
 
 state 29
 
-    (23) expression -> TEXT .
+    (23) expression -> CHARACTERS .
 
-    EQUAL           reduce using rule 23 (expression -> TEXT .)
-    NOTEQUAL        reduce using rule 23 (expression -> TEXT .)
-    >               reduce using rule 23 (expression -> TEXT .)
-    <               reduce using rule 23 (expression -> TEXT .)
-    ADD_OP          reduce using rule 23 (expression -> TEXT .)
-    MUL_OP          reduce using rule 23 (expression -> TEXT .)
-    TO              reduce using rule 23 (expression -> TEXT .)
-    {               reduce using rule 23 (expression -> TEXT .)
-    }               reduce using rule 23 (expression -> TEXT .)
-    ;               reduce using rule 23 (expression -> TEXT .)
-    BREAK           reduce using rule 23 (expression -> TEXT .)
-    PRINT           reduce using rule 23 (expression -> TEXT .)
-    IDENTIFIER      reduce using rule 23 (expression -> TEXT .)
-    BOOL            reduce using rule 23 (expression -> TEXT .)
-    NUMBER          reduce using rule 23 (expression -> TEXT .)
-    TEXT            reduce using rule 23 (expression -> TEXT .)
-    WHILE           reduce using rule 23 (expression -> TEXT .)
-    LOOP            reduce using rule 23 (expression -> TEXT .)
-    FOR             reduce using rule 23 (expression -> TEXT .)
-    IF              reduce using rule 23 (expression -> TEXT .)
-    SWITCH          reduce using rule 23 (expression -> TEXT .)
-    CASE            reduce using rule 23 (expression -> TEXT .)
-    $end            reduce using rule 23 (expression -> TEXT .)
-    )               reduce using rule 23 (expression -> TEXT .)
-    STEP            reduce using rule 23 (expression -> TEXT .)
+    EQUAL           reduce using rule 23 (expression -> CHARACTERS .)
+    NOTEQUAL        reduce using rule 23 (expression -> CHARACTERS .)
+    >               reduce using rule 23 (expression -> CHARACTERS .)
+    <               reduce using rule 23 (expression -> CHARACTERS .)
+    ADD_OP          reduce using rule 23 (expression -> CHARACTERS .)
+    MUL_OP          reduce using rule 23 (expression -> CHARACTERS .)
+    TO              reduce using rule 23 (expression -> CHARACTERS .)
+    {               reduce using rule 23 (expression -> CHARACTERS .)
+    }               reduce using rule 23 (expression -> CHARACTERS .)
+    ;               reduce using rule 23 (expression -> CHARACTERS .)
+    BREAK           reduce using rule 23 (expression -> CHARACTERS .)
+    PRINT           reduce using rule 23 (expression -> CHARACTERS .)
+    IDENTIFIER      reduce using rule 23 (expression -> CHARACTERS .)
+    BOOL            reduce using rule 23 (expression -> CHARACTERS .)
+    NUMBER          reduce using rule 23 (expression -> CHARACTERS .)
+    TEXT            reduce using rule 23 (expression -> CHARACTERS .)
+    WHILE           reduce using rule 23 (expression -> CHARACTERS .)
+    LOOP            reduce using rule 23 (expression -> CHARACTERS .)
+    FOR             reduce using rule 23 (expression -> CHARACTERS .)
+    IF              reduce using rule 23 (expression -> CHARACTERS .)
+    SWITCH          reduce using rule 23 (expression -> CHARACTERS .)
+    CASE            reduce using rule 23 (expression -> CHARACTERS .)
+    $end            reduce using rule 23 (expression -> CHARACTERS .)
+    )               reduce using rule 23 (expression -> CHARACTERS .)
+    STEP            reduce using rule 23 (expression -> CHARACTERS .)
 
 
 state 30
@@ -789,7 +752,7 @@ state 32
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -797,7 +760,7 @@ state 32
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -825,8 +788,8 @@ state 33
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -867,7 +830,7 @@ state 35
 
 state 36
 
-    (17) structure -> SWITCH expression . { programme statement }
+    (17) structure -> SWITCH expression . { programme }
     (19) expression -> expression . ADD_OP expression
     (20) expression -> expression . MUL_OP expression
 
@@ -878,7 +841,7 @@ state 36
 
 state 37
 
-    (18) structure -> CASE expression . { programme BREAK }
+    (18) structure -> CASE expression . { programme }
     (19) expression -> expression . ADD_OP expression
     (20) expression -> expression . MUL_OP expression
 
@@ -893,18 +856,6 @@ state 38
 
     $end            reduce using rule 3 (programme -> statement ; programme .)
     }               reduce using rule 3 (programme -> statement ; programme .)
-    BREAK           reduce using rule 3 (programme -> statement ; programme .)
-    PRINT           reduce using rule 3 (programme -> statement ; programme .)
-    IDENTIFIER      reduce using rule 3 (programme -> statement ; programme .)
-    BOOL            reduce using rule 3 (programme -> statement ; programme .)
-    NUMBER          reduce using rule 3 (programme -> statement ; programme .)
-    TEXT            reduce using rule 3 (programme -> statement ; programme .)
-    WHILE           reduce using rule 3 (programme -> statement ; programme .)
-    LOOP            reduce using rule 3 (programme -> statement ; programme .)
-    FOR             reduce using rule 3 (programme -> statement ; programme .)
-    IF              reduce using rule 3 (programme -> statement ; programme .)
-    SWITCH          reduce using rule 3 (programme -> statement ; programme .)
-    CASE            reduce using rule 3 (programme -> statement ; programme .)
 
 
 state 39
@@ -986,8 +937,8 @@ state 44
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1014,7 +965,7 @@ state 45
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1022,7 +973,7 @@ state 45
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1037,7 +988,7 @@ state 46
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1045,7 +996,7 @@ state 46
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1060,7 +1011,7 @@ state 47
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1068,7 +1019,7 @@ state 47
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1083,7 +1034,7 @@ state 48
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1091,7 +1042,7 @@ state 48
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1106,7 +1057,7 @@ state 49
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1114,7 +1065,7 @@ state 49
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1129,7 +1080,7 @@ state 50
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1137,7 +1088,7 @@ state 50
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1206,7 +1157,7 @@ state 54
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1214,7 +1165,7 @@ state 54
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1243,8 +1194,8 @@ state 55
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1266,7 +1217,7 @@ state 55
 
 state 56
 
-    (17) structure -> SWITCH expression { . programme statement }
+    (17) structure -> SWITCH expression { . programme }
     (1) programme -> . statement
     (2) programme -> . statement programme
     (3) programme -> . statement ; programme
@@ -1284,8 +1235,8 @@ state 56
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1307,7 +1258,7 @@ state 56
 
 state 57
 
-    (18) structure -> CASE expression { . programme BREAK }
+    (18) structure -> CASE expression { . programme }
     (1) programme -> . statement
     (2) programme -> . statement programme
     (3) programme -> . statement ; programme
@@ -1325,8 +1276,8 @@ state 57
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1647,46 +1598,16 @@ state 73
 
 state 74
 
-    (17) structure -> SWITCH expression { programme . statement }
-    (4) statement -> . assignation
-    (5) statement -> . structure
-    (6) statement -> . BREAK
-    (7) statement -> . PRINT { expression }
-    (32) assignation -> . IDENTIFIER = expression
-    (33) assignation -> . BOOL IDENTIFIER = TRUE
-    (34) assignation -> . BOOL IDENTIFIER = FALSE
-    (35) assignation -> . NUMBER IDENTIFIER = DIGIT
-    (36) assignation -> . TEXT IDENTIFIER = CHARACTERS
-    (12) structure -> . WHILE condition { programme }
-    (13) structure -> . LOOP { programme }
-    (14) structure -> . FOR expression TO expression STEP expression { programme }
-    (15) structure -> . IF condition { programme }
-    (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> SWITCH expression { programme . }
 
-    BREAK           shift and go to state 5
-    PRINT           shift and go to state 6
-    IDENTIFIER      shift and go to state 7
-    BOOL            shift and go to state 8
-    NUMBER          shift and go to state 9
-    TEXT            shift and go to state 10
-    WHILE           shift and go to state 11
-    LOOP            shift and go to state 12
-    FOR             shift and go to state 13
-    IF              shift and go to state 14
-    SWITCH          shift and go to state 15
-    CASE            shift and go to state 16
+    }               shift and go to state 79
 
-    statement                      shift and go to state 79
-    assignation                    shift and go to state 3
-    structure                      shift and go to state 4
 
 state 75
 
-    (18) structure -> CASE expression { programme . BREAK }
+    (18) structure -> CASE expression { programme . }
 
-    BREAK           shift and go to state 80
+    }               shift and go to state 80
 
 
 state 76
@@ -1717,7 +1638,7 @@ state 77
     (20) expression -> . expression MUL_OP expression
     (21) expression -> . IDENTIFIER
     (22) expression -> . DIGIT
-    (23) expression -> . TEXT
+    (23) expression -> . CHARACTERS
     (24) expression -> . TRUE
     (25) expression -> . FALSE
     (26) expression -> . ( expression )
@@ -1725,7 +1646,7 @@ state 77
 
     IDENTIFIER      shift and go to state 27
     DIGIT           shift and go to state 28
-    TEXT            shift and go to state 29
+    CHARACTERS      shift and go to state 29
     TRUE            shift and go to state 30
     FALSE           shift and go to state 31
     (               shift and go to state 32
@@ -1758,16 +1679,44 @@ state 78
 
 state 79
 
-    (17) structure -> SWITCH expression { programme statement . }
+    (17) structure -> SWITCH expression { programme } .
 
-    }               shift and go to state 83
+    ;               reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    BREAK           reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    PRINT           reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    IDENTIFIER      reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    BOOL            reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    NUMBER          reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    TEXT            reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    WHILE           reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    LOOP            reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    FOR             reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    IF              reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    SWITCH          reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    CASE            reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    $end            reduce using rule 17 (structure -> SWITCH expression { programme } .)
+    }               reduce using rule 17 (structure -> SWITCH expression { programme } .)
 
 
 state 80
 
-    (18) structure -> CASE expression { programme BREAK . }
+    (18) structure -> CASE expression { programme } .
 
-    }               shift and go to state 84
+    ;               reduce using rule 18 (structure -> CASE expression { programme } .)
+    BREAK           reduce using rule 18 (structure -> CASE expression { programme } .)
+    PRINT           reduce using rule 18 (structure -> CASE expression { programme } .)
+    IDENTIFIER      reduce using rule 18 (structure -> CASE expression { programme } .)
+    BOOL            reduce using rule 18 (structure -> CASE expression { programme } .)
+    NUMBER          reduce using rule 18 (structure -> CASE expression { programme } .)
+    TEXT            reduce using rule 18 (structure -> CASE expression { programme } .)
+    WHILE           reduce using rule 18 (structure -> CASE expression { programme } .)
+    LOOP            reduce using rule 18 (structure -> CASE expression { programme } .)
+    FOR             reduce using rule 18 (structure -> CASE expression { programme } .)
+    IF              reduce using rule 18 (structure -> CASE expression { programme } .)
+    SWITCH          reduce using rule 18 (structure -> CASE expression { programme } .)
+    CASE            reduce using rule 18 (structure -> CASE expression { programme } .)
+    $end            reduce using rule 18 (structure -> CASE expression { programme } .)
+    }               reduce using rule 18 (structure -> CASE expression { programme } .)
 
 
 state 81
@@ -1776,7 +1725,7 @@ state 81
     (19) expression -> expression . ADD_OP expression
     (20) expression -> expression . MUL_OP expression
 
-    {               shift and go to state 85
+    {               shift and go to state 83
     ADD_OP          shift and go to state 49
     MUL_OP          shift and go to state 50
 
@@ -1785,52 +1734,10 @@ state 82
 
     (16) structure -> IF condition { programme } ELSE . { programme }
 
-    {               shift and go to state 86
+    {               shift and go to state 84
 
 
 state 83
-
-    (17) structure -> SWITCH expression { programme statement } .
-
-    ;               reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    BREAK           reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    PRINT           reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    IDENTIFIER      reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    BOOL            reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    NUMBER          reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    TEXT            reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    WHILE           reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    LOOP            reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    FOR             reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    IF              reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    SWITCH          reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    CASE            reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    $end            reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-    }               reduce using rule 17 (structure -> SWITCH expression { programme statement } .)
-
-
-state 84
-
-    (18) structure -> CASE expression { programme BREAK } .
-
-    ;               reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    BREAK           reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    PRINT           reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    IDENTIFIER      reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    BOOL            reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    NUMBER          reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    TEXT            reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    WHILE           reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    LOOP            reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    FOR             reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    IF              reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    SWITCH          reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    CASE            reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    $end            reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-    }               reduce using rule 18 (structure -> CASE expression { programme BREAK } .)
-
-
-state 85
 
     (14) structure -> FOR expression TO expression STEP expression { . programme }
     (1) programme -> . statement
@@ -1850,8 +1757,8 @@ state 85
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1866,12 +1773,12 @@ state 85
     SWITCH          shift and go to state 15
     CASE            shift and go to state 16
 
-    programme                      shift and go to state 87
+    programme                      shift and go to state 85
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
-state 86
+state 84
 
     (16) structure -> IF condition { programme } ELSE { . programme }
     (1) programme -> . statement
@@ -1891,8 +1798,8 @@ state 86
     (14) structure -> . FOR expression TO expression STEP expression { programme }
     (15) structure -> . IF condition { programme }
     (16) structure -> . IF condition { programme } ELSE { programme }
-    (17) structure -> . SWITCH expression { programme statement }
-    (18) structure -> . CASE expression { programme BREAK }
+    (17) structure -> . SWITCH expression { programme }
+    (18) structure -> . CASE expression { programme }
 
     BREAK           shift and go to state 5
     PRINT           shift and go to state 6
@@ -1907,26 +1814,26 @@ state 86
     SWITCH          shift and go to state 15
     CASE            shift and go to state 16
 
-    programme                      shift and go to state 88
+    programme                      shift and go to state 86
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
-state 87
+state 85
 
     (14) structure -> FOR expression TO expression STEP expression { programme . }
 
-    }               shift and go to state 89
+    }               shift and go to state 87
 
 
-state 88
+state 86
 
     (16) structure -> IF condition { programme } ELSE { programme . }
 
-    }               shift and go to state 90
+    }               shift and go to state 88
 
 
-state 89
+state 87
 
     (14) structure -> FOR expression TO expression STEP expression { programme } .
 
@@ -1947,7 +1854,7 @@ state 89
     }               reduce using rule 14 (structure -> FOR expression TO expression STEP expression { programme } .)
 
 
-state 90
+state 88
 
     (16) structure -> IF condition { programme } ELSE { programme } .
 
@@ -1967,18 +1874,3 @@ state 90
     $end            reduce using rule 16 (structure -> IF condition { programme } ELSE { programme } .)
     }               reduce using rule 16 (structure -> IF condition { programme } ELSE { programme } .)
 
-WARNING: 
-WARNING: Conflicts:
-WARNING: 
-WARNING: shift/reduce conflict for BREAK in state 2 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 2 resolved as shift
-WARNING: shift/reduce conflict for IDENTIFIER in state 2 resolved as shift
-WARNING: shift/reduce conflict for BOOL in state 2 resolved as shift
-WARNING: shift/reduce conflict for NUMBER in state 2 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 2 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 2 resolved as shift
-WARNING: shift/reduce conflict for LOOP in state 2 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 2 resolved as shift
-WARNING: shift/reduce conflict for IF in state 2 resolved as shift
-WARNING: shift/reduce conflict for SWITCH in state 2 resolved as shift
-WARNING: shift/reduce conflict for CASE in state 2 resolved as shift

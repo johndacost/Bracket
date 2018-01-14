@@ -182,8 +182,10 @@ class WhileNode(Node):
 class LoopNode(Node):
     type = 'loop'
 
+
 class ForNode(Node):
     type = 'for'
+
 
 class EntryNode(Node):
     type = 'ENTRY'

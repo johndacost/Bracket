@@ -87,12 +87,12 @@ def p_structure_if_else(p):
 
 
 def p_structure_switch(p):
-    ''' structure : SWITCH expression '{' programme statement '}' '''
-    p[0] = AST.IfNode([p[2], p[4]])
+    ''' structure : SWITCH expression '{' programme '}' '''
+    p[0] = AST.SwitchNode([p[2], p[4]])
 
 
 def p_structure_case(p):
-    ''' structure : CASE expression '{' programme BREAK '}' '''
+    ''' structure : CASE expression '{' programme '}' '''
     p[0] = AST.CaseNode([p[2], p[4]])
 
 
@@ -113,7 +113,7 @@ def p_expression_num(p):
 
 
 def p_expression_text(p):
-    ''' expression : TEXT '''
+    ''' expression : CHARACTERS '''
     p[0] = AST.TokenNode(p[1])
 
 

@@ -104,6 +104,27 @@ def compile(self):
     return pycode
 
 
+@addToClass(AST.SwitchNode)
+def compile(self):
+    pycode = "switch_var = "
+    pycode += self.children[0].compile()
+    pycode += "\n"
+    for c in self.children[1:]:
+        pycode += c.compile()
+    return pycode
+
+
+@addToClass(AST.CaseNode)
+def compile(self):
+    pycode = ""
+    pycode += "if switch_var"
+    pycode += " == "
+    pycode += self.children[0].compile()
+    pycode += ":\n"
+    pycode += add_indentation(remove_break_line(self.children[1].compile()))
+    return pycode
+
+
 @addToClass(AST.ConditionNode)
 def compile(self):
     pycode = ""
@@ -124,6 +145,10 @@ def add_indentation(text):
     for line in lines:
         result += "    " + line + "\n"
     return result
+
+
+def remove_break_line(text):
+    return text[:text.rfind('break')]
 
 
 if __name__ == '__main__':
