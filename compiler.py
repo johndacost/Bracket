@@ -86,12 +86,30 @@ def compile(self):
 def compile(self):
     pycode = "for _ in range("
     pycode += number_to_int(self.children[0].compile())
-    pycode += ","
+    pycode += ", "
     pycode += number_to_int(self.children[1].compile())
-    pycode += ","
+    pycode += ", "
     pycode += number_to_int(self.children[2].compile())
-    pycode += ") :\n"
+    pycode += "):\n"
     pycode += add_indentation(self.children[3].compile())
+    return pycode
+
+
+@addToClass(AST.IfNode)
+def compile(self):
+    pycode = "if "
+    pycode += self.children[0].compile()
+    pycode += ":\n"
+    pycode += add_indentation(self.children[1].compile())
+    return pycode
+
+
+@addToClass(AST.ConditionNode)
+def compile(self):
+    pycode = ""
+    pycode += self.children[0].compile()
+    pycode += " " + self.comparator + " "
+    pycode += self.children[1].compile()
     return pycode
 
 
@@ -106,15 +124,6 @@ def add_indentation(text):
     for line in lines:
         result += "    " + line + "\n"
     return result
-
-
-@addToClass(AST.ConditionNode)
-def compile(self):
-    pycode = ""
-    pycode += self.children[0].compile()
-    pycode += " " + self.comparator + " "
-    pycode += self.children[1].compile()
-    return pycode
 
 
 if __name__ == '__main__':

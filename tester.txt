@@ -1,28 +1,12 @@
 number num = 5
 text tex = "Salut"
 
-num = 12
-num = 3 + 2
-num = 3 - 2
-num = 3 * 2
-num = 3 / 2
-
 print{num}
 
-while 3 == 5 {
-    num = 3
-    num = 1
-    while num == 2 {
-        num = 0
-    }
-}
-
-loop {
+if num == 3 {
     num = 2
-    break
-}
-
-for 1 to 3 step 1 {
-	num = 3
-	number i = 1
+    print{56}
+    if num != 6 {
+        num = num + 1
+    }
 }
