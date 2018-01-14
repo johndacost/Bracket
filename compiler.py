@@ -1,4 +1,7 @@
 import AST
+import sys
+import os
+from parser_bracket import parse
 from AST import addToClass
 
 operations = {
@@ -152,10 +155,6 @@ def remove_break_line(text):
 
 
 if __name__ == '__main__':
-    from parser5 import parse
-    import sys
-    import os
-
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     compiled = ast.compile()

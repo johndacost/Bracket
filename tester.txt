@@ -1,24 +1,7 @@
 number num = 5
 text tex = "Salut"
+bool test = true
 
-print{"bla"}
-
-if num == 3 {
-    num = 2
-    print{56}
-    if num != 6 {
-        num = num + 1
-    }
-}
-
-switch num {
-    case 3 {
-        print{num}
-        print{num}
-        break
-    }
-    case 2 {
-        num = 4
-        break
-    }
+if test == true {
+    print{"Ok"}
 }

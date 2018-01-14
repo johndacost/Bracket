@@ -23,10 +23,10 @@ reserved_words = (
 )
 
 tokens = (
-             'DIGIT',
-             'CHARACTERS',
-             'BOOLEAN',
-             'CONTEXT_OP',
+             'DIGIT',  # Represent a number
+             'CHARACTERS',  # Represent a string
+             'BOOLEAN',  # true or false
+             'CONTEXT_OP',  # not used
              'ADD_OP',
              'MUL_OP',
              'COMP_OP',

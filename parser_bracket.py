@@ -5,7 +5,7 @@ import os
 import sys
 import time
 
-from lex5 import tokens
+from lex import tokens
 
 precedence = (
     ('left', 'ADD_OP'),
@@ -30,11 +30,6 @@ def p_programme(p):
         p[0] = AST.ProgramNode([p[1]] + p[2].children)
     except Exception as e:
         p[0] = AST.ProgramNode(p[1])
-
-
-def p_programme_recursive(p):
-    ''' programme : statement ';' programme '''
-    p[0] = AST.ProgramNode([p[1]] + p[3].children)
 
 
 def p_statement(p):
@@ -118,8 +113,7 @@ def p_expression_text(p):
 
 
 def p_expression_bool(p):
-    ''' expression : TRUE
-    | FALSE '''
+    ''' expression : BOOLEAN '''
     p[0] = AST.TokenNode(p[1])
 
 
@@ -133,14 +127,6 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
 
 
-def p_type(p):
-    ''' type : NUMBER
-        | BOOL
-        | TEXT
-        | LIST '''
-    p[0] = AST.TypeNode(AST.TokenNode(p[1]))
-
-
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     vars[p[1]] = (vars[p[1]][0], p[3])
@@ -148,8 +134,7 @@ def p_assign(p):
 
 
 def p_assign_bool(p):
-    """ assignation : BOOL IDENTIFIER '=' TRUE
-     | BOOL IDENTIFIER '=' FALSE """
+    """ assignation : BOOL IDENTIFIER '=' expression """
     vars[p[2]] = ("BOOL", p[4])
     p[0] = AST.AssignDeclareNode(p[1], [AST.TokenNode(p[2]), AST.TokenNode(p[4])])
 
@@ -177,7 +162,8 @@ def parse(program):
         name = os.path.splitext(sys.argv[1])[0] + "-ast.pdf"
         graph.write_pdf(name)
         print("wrote ast to", name)
-
+    else:
+        print("Parsing returned no result!")
     return result
 
 
@@ -185,14 +171,7 @@ yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog)
+    res = yacc.parse(prog)
     time.sleep(1)
-
-    print(result)
-    if result:
-        graph = result.makegraphicaltree()
-        name = os.path.splitext(sys.argv[1])[0] + "-ast.pdf"
-        graph.write_pdf(name)
-        print("wrote ast to", name)
-    else:
-        print("Parsing returned no result!")
+    print(res)
+    parse(prog)
