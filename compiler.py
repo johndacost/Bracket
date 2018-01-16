@@ -14,6 +14,7 @@ operations = {
 
 @addToClass(AST.ProgramNode)
 def compile(self):
+    """Compile each children of a program node"""
     pycode = ""
     for c in self.children:
         pycode += c.compile()
@@ -22,8 +23,8 @@ def compile(self):
 
 @addToClass(AST.TokenNode)
 def compile(self):
-    pycode = ""
-    pycode += "%s" % self.tok
+    """Compile a token"""
+    pycode = "%s" % self.tok
     if self.tok == "break":
         pycode += "\n"
     return pycode
@@ -31,6 +32,7 @@ def compile(self):
 
 @addToClass(AST.OpNode)
 def compile(self):
+    """Compile an operator +,-,/,*"""
     pycode = ""
 
     if len(self.children) == 1:
@@ -50,6 +52,7 @@ def compile(self):
 
 @addToClass(AST.AssignNode)
 def compile(self):
+    """Compile an assignation"""
     pycode = "%s = " % self.children[0].tok
     pycode += "%s\n" % self.children[1].compile()
     return pycode
@@ -57,6 +60,7 @@ def compile(self):
 
 @addToClass(AST.AssignDeclareNode)
 def compile(self):
+    """Compile a node that declare and assign a variable"""
     pycode = "%s" % self.children[0].tok
     pycode += " = %s\n" % self.children[1].tok
     return pycode
@@ -64,6 +68,7 @@ def compile(self):
 
 @addToClass(AST.PrintNode)
 def compile(self):
+    """Compile the print function"""
     pycode = "print("
     pycode += "%s)\n" % self.children[0].compile()
     return pycode
@@ -71,6 +76,7 @@ def compile(self):
 
 @addToClass(AST.WhileNode)
 def compile(self):
+    """Compile a while structure"""
     pycode = "while "
     pycode += self.children[0].compile()
     pycode += ":\n"
@@ -80,6 +86,7 @@ def compile(self):
 
 @addToClass(AST.LoopNode)
 def compile(self):
+    """Compile a loop structure"""
     pycode = "while True :\n"
     pycode += add_indentation(self.children[0].compile())
     return pycode
@@ -87,6 +94,7 @@ def compile(self):
 
 @addToClass(AST.ForNode)
 def compile(self):
+    """Compile a for num to num step num loop"""
     pycode = "for _ in range("
     pycode += number_to_int(self.children[0].compile())
     pycode += ", "
@@ -100,6 +108,7 @@ def compile(self):
 
 @addToClass(AST.IfNode)
 def compile(self):
+    """Compile a if structure"""
     pycode = "if "
     pycode += self.children[0].compile()
     pycode += ":\n"
@@ -109,6 +118,7 @@ def compile(self):
 
 @addToClass(AST.SwitchNode)
 def compile(self):
+    """Compile a switch structure"""
     pycode = "switch_var = "
     pycode += self.children[0].compile()
     pycode += "\n"
@@ -119,8 +129,8 @@ def compile(self):
 
 @addToClass(AST.CaseNode)
 def compile(self):
-    pycode = ""
-    pycode += "if switch_var"
+    """Compile a case statement inside a switch"""
+    pycode = "if switch_var"
     pycode += " == "
     pycode += self.children[0].compile()
     pycode += ":\n"
@@ -130,6 +140,7 @@ def compile(self):
 
 @addToClass(AST.ConditionNode)
 def compile(self):
+    """Compile a condition node"""
     pycode = ""
     pycode += self.children[0].compile()
     pycode += " " + self.comparator + " "
@@ -138,10 +149,12 @@ def compile(self):
 
 
 def number_to_int(string_number):
+    """Remove the floating value of a string"""
     return str(int(float(string_number)))
 
 
 def add_indentation(text):
+    """"In a given string, add indentation of 4 spaces to each newline"""
     lines = text.split('\n')
     lines.pop()
     result = ""
@@ -151,6 +164,7 @@ def add_indentation(text):
 
 
 def remove_break_line(text):
+    """In a given string, remove instruction lines containing break"""
     return text[:text.rfind('break')]
 
 

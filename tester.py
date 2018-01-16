@@ -4,3 +4,5 @@ test = True
 
 if test == True:
     print("Ok")
+if num > 3.0:
+    print("Ok")

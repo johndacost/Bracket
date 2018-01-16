@@ -3,11 +3,8 @@ Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     CONTEXT_OP
-    COMP_OP
     DEFAULT
     PI
-    TRUE
-    FALSE
     LIST
 
 Grammar
@@ -56,13 +53,11 @@ BOOLEAN              : 23
 BREAK                : 5
 CASE                 : 17
 CHARACTERS           : 22 29
-COMP_OP              : 
 CONTEXT_OP           : 
 DEFAULT              : 
 DIGIT                : 21 28
 ELSE                 : 15
 EQUAL                : 7
-FALSE                : 
 FOR                  : 13
 IDENTIFIER           : 20 26 27 28 29
 IF                   : 14 15
@@ -77,7 +72,6 @@ STEP                 : 13
 SWITCH               : 16
 TEXT                 : 29
 TO                   : 13
-TRUE                 : 
 WHILE                : 11
 error                : 
 {                    : 6 11 12 13 14 15 15 16 17

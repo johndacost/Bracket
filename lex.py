@@ -12,8 +12,6 @@ reserved_words = (
     'default',
     'print',
     'PI',
-    'true',
-    'false',
     'number',
     'list',
     'text',
@@ -29,7 +27,6 @@ tokens = (
              'CONTEXT_OP',  # not used
              'ADD_OP',
              'MUL_OP',
-             'COMP_OP',
              'IDENTIFIER',
              'EQUAL',
              'NOTEQUAL'
@@ -85,11 +82,6 @@ def t_EQUAL(t):
 
 def t_NOTEQUAL(t):
     r'!='
-    return t
-
-
-def t_COMP_OP(t):
-    r'==|!=|=!|<|>'
     return t
 
 

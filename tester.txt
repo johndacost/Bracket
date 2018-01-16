@@ -5,3 +5,7 @@ bool test = true
 if test == true {
     print{"Ok"}
 }
+
+if num > 3 {
+    print{"Ok"}
+}

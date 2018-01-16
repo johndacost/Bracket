@@ -152,10 +152,12 @@ def p_assign_text(p):
 
 
 def p_error(p):
+    """Print error line number"""
     print("Syntax error in line %d" % p.lineno)
 
 
 def parse(program):
+    """Generate the AST"""
     result = yacc.parse(program)
     if result:
         graph = result.makegraphicaltree()
@@ -172,6 +174,6 @@ yacc.yacc(outputdir='generated')
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
     res = yacc.parse(prog)
-    time.sleep(1)
+    time.sleep(1)  # Used to separate the error messages
     print(res)
     parse(prog)
