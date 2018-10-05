@@ -1,3 +1,1 @@
 # Projet compilateur
-
-## realiser par deux pauvres étudiants...
